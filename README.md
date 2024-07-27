@@ -1,0 +1,1 @@
+init fullkos-server
