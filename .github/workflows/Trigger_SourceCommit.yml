@@ -28,9 +28,9 @@ jobs:
       # Runs a single command using the runners shell
       - name: Clone and Force Push
         run: |
-          git clone https://${{NC_SC_URL}} sc_server
+          git clone https://${{ secrets.NC_SC_URL }} sc_server
           cd sc_server
           git config user.name "Github Actions Bot"
           git config user.email "<>"
           git commit --amend --no-edit
-          git push -f
+          git push 'https://${{ secrets.NC_SC_ID }}${{ secrets.NC_SC_KEY }}${{ secrets.NC_SC_URL }}' -f
