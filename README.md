@@ -1,1 +1,1 @@
-init fullkos-server
+fullkos-server
