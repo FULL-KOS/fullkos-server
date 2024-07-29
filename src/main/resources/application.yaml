@@ -1,0 +1,34 @@
+server:
+  port: 8080
+  servlet:
+    contextPath: /
+    encoding:
+      charset: UTF-8
+      enabled: true
+      force: true
+
+spring:
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  application:
+    name: dish
+  devtools:
+    livereload:
+      enabled: true
+
+logging:
+  level:
+    root: INFO
+    org:
+      springframework:
+        boot:
+          autoconfigure: ERROR
+        security: DEBUG
+      hibernate:
+        type:
+          descriptor:
+            sql: trace
+    com:
+      fullkos:
+        dish: DEBUG
