@@ -1,6 +1,9 @@
 package com.fullkos.dish.api.Service;
 
+import com.fullkos.dish.api.dto.GetBuySellsDto;
 import com.fullkos.dish.api.dto.GetVolumeDto;
+import com.fullkos.dish.db.dto.BuySellDto;
+import com.fullkos.dish.db.dto.BuySellDtoInterface;
 import com.fullkos.dish.db.dto.VolumeDto;
 import com.fullkos.dish.db.dto.VolumeDtoInterface;
 import com.fullkos.dish.db.repository.CompanyRepository;
@@ -44,5 +47,31 @@ public class TradingServiceImpl implements TradingService{
                 .build();
 
         return getVolumeDto;
+    }
+
+    @Override
+    public GetBuySellsDto getBuySell(String industry) {
+        List<BuySellDtoInterface> buySellDtoInterfaces = tradingRepository.findTop10BuySellByIndustry(industry);
+        if(buySellDtoInterfaces.size() == 0) {
+            throw new IllegalStateException("No results");
+        }
+        List<BuySellDto> buySells = buySellDtoInterfaces.stream().map(
+                v -> BuySellDto.builder()
+                        .companyId(v.getCompanyId())
+                        .companyName(v.getCompanyName())
+                        .buyTotal(v.getBuyTotal())
+                        .sellTotal(v.getSellTotal())
+                        .build()
+        ).collect(Collectors.toList());
+        Long maxValue = 0L;
+        for(BuySellDto v : buySells) {
+            maxValue = Math.max(maxValue, Math.max(Math.abs(v.getBuyTotal()), Math.abs(v.getSellTotal())));
+        }
+        GetBuySellsDto buySellsDto = GetBuySellsDto.builder()
+                .buySells(buySells)
+                .maxValue(maxValue)
+                .build();
+
+        return buySellsDto;
     }
 }
