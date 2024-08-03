@@ -24,6 +24,8 @@ public class Company {
     @Column(name = "stock_code")
     private Integer stockCode;
 
-    @OneToMany(mappedBy = "company", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "comapnyInTrading", fetch = FetchType.LAZY)
     private List<Trading> companyTradingList = new ArrayList<>();
+    @OneToMany(mappedBy = "companyInMajorTrading", fetch = FetchType.LAZY)
+    private List<MajorTrading> companyMajorTradingList = new ArrayList<>();
 }

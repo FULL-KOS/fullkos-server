@@ -23,6 +23,6 @@ public class Trading {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "company_id", insertable = false, updatable = false)
-    private Company company;
+    private Company comapnyInTrading;
 
 }
