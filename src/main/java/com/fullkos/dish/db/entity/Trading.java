@@ -21,7 +21,7 @@ public class Trading {
     private String buyer;
     private LocalDateTime date;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "company_id", insertable = false, updatable = false)
     private Company comapnyInTrading;
 
