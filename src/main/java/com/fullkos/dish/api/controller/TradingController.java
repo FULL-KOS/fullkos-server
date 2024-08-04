@@ -14,6 +14,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
@@ -28,12 +29,12 @@ public class TradingController {
     }
 
     @GetMapping("/volume")
-    public ResponseEntity<? extends BaseResponseBody> getVolume(@RequestBody TradingReq tradingReq) {
+    public ResponseEntity<? extends BaseResponseBody> getVolume(@RequestParam String industry) {
 
         VolumeRes res;
         try
         {
-            GetVolumeDto dto = tradingService.getVolume(tradingReq.getIndustry());
+            GetVolumeDto dto = tradingService.getVolume(industry);
             res = VolumeRes.of(200, "success", dto);
         } catch (Exception e) {
             return ResponseEntity.status(500).body(BaseResponseBody.of(500, e.getMessage()));
@@ -43,11 +44,11 @@ public class TradingController {
     }
 
     @GetMapping("/buysell")
-    public ResponseEntity<? extends BaseResponseBody> getBuySell(@RequestBody TradingReq tradingReq) {
+    public ResponseEntity<? extends BaseResponseBody> getBuySell(@RequestParam String industry) {
         BuySellRes res;
         try
         {
-            GetBuySellsDto dto = tradingService.getBuySell(tradingReq.getIndustry());
+            GetBuySellsDto dto = tradingService.getBuySell(industry);
             res = BuySellRes.of(200, "success", dto);
         } catch (Exception e) {
             return ResponseEntity.status(500).body(BaseResponseBody.of(500, e.getMessage()));
