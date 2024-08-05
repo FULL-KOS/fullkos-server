@@ -1,6 +1,7 @@
 package com.fullkos.dish.api.Service;
 
 import com.fullkos.dish.api.dto.GetBuySellsDto;
+import com.fullkos.dish.api.dto.MonthlyCompanyTradingDto;
 import com.fullkos.dish.api.dto.GetVolumeDto;
 import com.fullkos.dish.db.dto.BuySellDto;
 import com.fullkos.dish.db.dto.BuySellDtoInterface;
@@ -73,5 +74,13 @@ public class TradingServiceImpl implements TradingService{
                 .build();
 
         return buySellsDto;
+    }
+
+    @Override
+    public List<MonthlyCompanyTradingDto> getMonthlyCompanyTradingDto(Long companyId) {
+        List<MonthlyCompanyTradingDto> monthlyTradingByCompanyId = tradingRepository.findMonthlyTradingByCompanyId(
+            companyId);
+        System.out.println(monthlyTradingByCompanyId);
+        return monthlyTradingByCompanyId;
     }
 }

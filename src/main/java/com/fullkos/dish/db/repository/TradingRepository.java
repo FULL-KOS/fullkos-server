@@ -1,7 +1,7 @@
 package com.fullkos.dish.db.repository;
 
+import com.fullkos.dish.api.dto.MonthlyCompanyTradingDto;
 import com.fullkos.dish.db.dto.BuySellDtoInterface;
-import com.fullkos.dish.db.dto.VolumeDto;
 import com.fullkos.dish.db.dto.VolumeDtoInterface;
 import com.fullkos.dish.db.entity.Trading;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -38,4 +38,17 @@ public interface TradingRepository extends JpaRepository<Trading, Long> {
             LIMIT 10;
         """, nativeQuery = true)
     List<BuySellDtoInterface> findTop10BuySellByIndustry(String industry);
+
+
+
+    @Query(value =
+		"""
+			      SELECT new com.fullkos.dish.api.dto.MonthlyCompanyTradingDto(sum(t.amount), FUNCTION('month', t.date), t.orderType)
+			          FROM Trading as t
+				  where t.comapnyInTrading.id = :companyId
+				  and t.date >= '2024-01-01'
+				  group by FUNCTION('month', t.date), t.orderType
+			"""
+	)
+    List<MonthlyCompanyTradingDto> findMonthlyTradingByCompanyId(Long companyId);
 }
