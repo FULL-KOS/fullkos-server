@@ -1,5 +1,6 @@
 package com.fullkos.dish.api.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.springframework.stereotype.Service;
@@ -18,5 +19,9 @@ public class NewsService {
 
 	public List<News> getNews(Long company_id) {
 		return newsRepository.findByCompanyId(company_id);
+	}
+
+	public List<News> getNews(Long company_id, LocalDateTime start, LocalDateTime end) {
+		return newsRepository.findByCompanyIdAndDateBetween(company_id, start, end);
 	}
 }
