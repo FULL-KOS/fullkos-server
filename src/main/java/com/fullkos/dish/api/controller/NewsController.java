@@ -37,7 +37,7 @@ import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/news")
+@RequestMapping("/api/news")
 public class NewsController {
 
 	final NewsService newsService;
